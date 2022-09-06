@@ -37,6 +37,19 @@ function init(){
                 df.appendChild(div);                     //append div to the document fragment
             })
             container.appendChild(df);                   //append document fragment to the container
+
+            //highlight the times when will be raining
+            jsondata.hourly.data.filter(hour => {        
+                if(hour.precipProbability > 0.5){       //filtering the objects that have more than 50% chance of rain in that hour
+                    return true;
+                }
+                return false;
+            }).map(hour => {
+                return hour.time;                      //taking the timestamp of the rain hours
+            }).forEach(timestamp => {
+                let id = 'ts_'.concat(timestamp);                   //taking the ids of the divs filtrated                            
+                document.getElementById(id).classList.add('precip'); //changing the style of the matching divs to blue
+            })
         })
         .catch(error => {
             console.log(error.message);
