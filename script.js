@@ -28,6 +28,12 @@ function init(){
                 div.textContent = temp.toString().concat('\u00B0'); //show the text of temperature and concat with the unicode simbol
                 div.title = hour.summary;               //add a title with the summary of the hour
 
+                //to show the time
+                let span = document.createElement('span'); //create the span to show the time
+                let dateObj = new Date(timestamp * 1000);  //date instance, convertion of the timestamp
+                span.textContent = dateObj.getHours().toString().concat(":00"); //show the hour
+
+                div.appendChild(span);                   //append span to the div
                 df.appendChild(div);                     //append div to the document fragment
             })
             container.appendChild(df);                   //append document fragment to the container
