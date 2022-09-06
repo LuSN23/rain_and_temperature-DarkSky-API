@@ -16,8 +16,16 @@ function init(){
                 throw new Error('Bad HTTP!');
             }
         })
-        .then(data => {
+        .then(jsondata => {
+            //create the weather grid
+            jsondata.hourly.data.forEach(hour =>{
+                //to show the temperature
+                let div = document.createElement('div');
+                div.classList.add('hour');
 
+                df.appendChild(div);
+            })
+            container.appendChild(df);
         })
         .catch(error => {
             console.log(error.message);
