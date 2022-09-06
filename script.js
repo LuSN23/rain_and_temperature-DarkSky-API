@@ -20,12 +20,17 @@ function init(){
             //create the weather grid
             jsondata.hourly.data.forEach(hour =>{
                 //to show the temperature
-                let div = document.createElement('div');
-                div.classList.add('hour');
+                let div = document.createElement('div'); //create the divs
+                div.classList.add('hour');               //add the class hour to the divs
+                let timestamp = hour.time;               //capture the timestamp of the object
+                div.id = 'ts_'+ timestamp.toString();    //create an id to the divs, be sure it is a string
+                let temp = parseInt(hour.temperature);   //capture the int part of the temperature property
+                div.textContent = temp.toString().concat('\u00B0'); //show the text of temperature and concat with the unicode simbol
+                div.title = hour.summary;               //add a title with the summary of the hour
 
-                df.appendChild(div);
+                df.appendChild(div);                     //append div to the document fragment
             })
-            container.appendChild(df);
+            container.appendChild(df);                   //append document fragment to the container
         })
         .catch(error => {
             console.log(error.message);
