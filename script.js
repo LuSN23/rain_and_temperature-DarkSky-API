@@ -49,7 +49,19 @@ function init(){
             }).forEach(timestamp => {
                 let id = 'ts_'.concat(timestamp);                   //taking the ids of the divs filtrated                            
                 document.getElementById(id).classList.add('precip'); //changing the style of the matching divs to blue
-            })
+            });
+
+            //highest temperature
+            let highTemp = jsondata.hourly.data.reduce((accumulator, hour) => {
+                if(hour.temperature > accumulator.temp) {   //the highest temperature object will be mantained
+                    return {temp: hour.temperature, time: hour.time}; 
+                }else {
+                    return accumulator;  //return the temp and time obj of accumulator
+                }
+            }, {temp: -100, time: 1000}); //initial value of the accumulator
+            let id = 'ts_'.concat(highTemp.time);
+            document.getElementById(id).classList.add('hot'); //add the hot style to the hour with the highest temperature
+
         })
         .catch(error => {
             console.log(error.message);
